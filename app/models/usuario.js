@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
-// Definimos la estructura del Usuario
 const UsuarioSchema = new mongoose.Schema({
     nombre: {
         type: String,
@@ -9,7 +9,9 @@ const UsuarioSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'El correo es obligatorio'],
-        unique: true // Esto evita que dos personas usen el mismo mail
+        unique: true,
+        lowercase: true,
+        trim: true
     },
     password: {
         type: String,
@@ -18,22 +20,21 @@ const UsuarioSchema = new mongoose.Schema({
     rol: {
         type: String,
         required: true,
-        enum: ['ADMIN_ROLE', 'USER_ROLE'], // Solo permitimos estos dos valores
+        enum: ['ADMIN_ROLE', 'USER_ROLE'], 
         default: 'USER_ROLE'
-    },
-    estado: {
-        type: Boolean,
-        default: true // Si después querés "borrar" un usuario, solo pasás esto a false
     }
 }, {
-    timestamps: true // Esto te crea "createdAt" y "updatedAt" automáticamente
+    timestamps: true 
 });
 
-// Truco profesional: Cuando devolvamos el usuario, NO mostramos la contraseña
-UsuarioSchema.methods.toJSON = function() {
-    const { __v, password, _id, ...usuario } = this.toObject();
-    usuario.uid = _id; 
-    return usuario;
-};
+UsuarioSchema.pre('save', async function(next){
+    if(!this.isModified('password')) return next();
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+});
+
+UsuarioSchema.methods.comparePassword = async function(candidatePassword){
+    return await bcrypt.compare(candidatePassword, this.password);
+}
 
 module.exports = mongoose.model('Usuario', UsuarioSchema);

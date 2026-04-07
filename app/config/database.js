@@ -12,8 +12,8 @@ module.exports = {
         return mongoose.connect(CONFIG.URIDB)
             .then(connection => {
                 this.connection = connection;
-                console.log('✅ Conexión a Base de Datos exitosa');
+                console.log('Conectada a la BD');
             })
-            .catch(err => console.log('❌ Error en DB:', err));
+            .catch(err => console.log('Error en DB:', err));
     }
 };

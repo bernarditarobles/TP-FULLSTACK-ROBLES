@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { registrarUsuario } = require('../controllers/usuarioController');
+const { registrarUsuario, loginUsuario } = require('../controllers/usuarioController');
 
-// Definimos la ruta para el registro
-router.post('/', registrarUsuario);
+router.post('/register', registrarUsuario);
+router.post('/login', loginUsuario);
 
 module.exports = router;

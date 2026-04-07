@@ -1,22 +1,22 @@
 // app.js es mi MAIN
-
 const express = require('express');
-const bodyParser = require('body-parser');
 const path = require('path');
+const app = express(); 
 
-const app = express();   // objeto que me permite crear app
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:false}))
-
+// RUTAS DE PRODUCTOS
 const productoRoutes = require('./routes/productoRoutes');
 app.use('/api/productos', productoRoutes);
 
+// RUTAS DE USUARIOS 
 const usuarioRoutes = require('./routes/usuarioRoutes');
-app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/users', usuarioRoutes); 
 
+// VISTA PRINCIPAL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/biblio.html'));
-})
+});
 
-module.exports = app
+module.exports = app;
