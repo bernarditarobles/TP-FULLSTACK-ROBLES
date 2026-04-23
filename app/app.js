@@ -14,6 +14,10 @@ app.use('/api/productos', productoRoutes);
 const usuarioRoutes = require('./routes/usuarioRoutes');
 app.use('/api/users', usuarioRoutes); 
 
+// RUTAS DEL CARRITO
+const carritoRoutes = require('./routes/carritoRoutes');
+app.use('/api/carrito', carritoRoutes);
+
 // VISTA PRINCIPAL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/biblio.html'));

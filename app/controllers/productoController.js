@@ -1,6 +1,6 @@
 const Producto = require('../models/producto');
 
-// Función para crear un producto (POST)
+// Función POST
 const crearProducto = async (req, res) => {
     try {
         const { nombre } = req.body;
@@ -33,7 +33,7 @@ const crearProducto = async (req, res) => {
     }
 };
 
-// Función para ver todos los productos (GET)
+// Función GET
 const obtenerProductos = async (req, res) => {
     const productos = await Producto.find();
     res.json(productos);
