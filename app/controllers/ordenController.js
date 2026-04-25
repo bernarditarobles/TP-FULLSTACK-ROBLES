@@ -3,7 +3,6 @@ const Carrito = require('../models/carrito');
 const Producto = require('../models/producto');
 
 const ordenController = {
-
     async finalizarCompra(req, res) {
         try {
             const usuarioId = req.usuario.id;
@@ -43,6 +42,8 @@ const ordenController = {
             });
 
             await nuevaOrden.save();
+
+            await Usuario.findByIdAndUpdate(usuarioId, { direccionGuardada: req.body.direccionEnvio });
 
             carrito.items = [];
             carrito.total = 0;
