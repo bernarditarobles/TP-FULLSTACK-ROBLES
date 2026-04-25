@@ -18,6 +18,10 @@ app.use('/api/users', usuarioRoutes);
 const carritoRoutes = require('./routes/carritoRoutes');
 app.use('/api/carrito', carritoRoutes);
 
+// RUTAS DE ORDENES
+const ordenRoutes = require('./routes/ordenRoutes');
+app.use('/api/orden', ordenRoutes);
+
 // VISTA PRINCIPAL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/biblio.html'));

@@ -4,25 +4,32 @@ const bcrypt = require('bcryptjs');
 const UsuarioSchema = new mongoose.Schema({
     nombre: {
         type: String,
-        required: [true, 'El nombre es obligatorio']
+        required: [true, 'CAMPO OBLIGATORIO'],
+        trim: true,
+        match: [/^[a-zA-Z\s]+$/, 'El nombre no puede contener números']
     },
     email: {
         type: String,
-        required: [true, 'El correo es obligatorio'],
+        required: [true, 'CAMPO OBLIGATORIO'],
         unique: true,
         lowercase: true,
-        trim: true
+        trim: true,
+        match: [/.+\@.+\..+/, 'Por favor ingrese un correo válido']
     },
     password: {
         type: String,
-        required: [true, 'La contraseña es obligatoria']
+        required: [true, 'CAMPO OBLIGATORIO'],
+        minlength: [8, 'La contraseña debe tener al menos 8 caracteres'],
+        select: false
     },
     rol: {
         type: String,
         required: true,
         enum: ['ADMIN_ROLE', 'USER_ROLE'], 
         default: 'USER_ROLE'
-    }
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 }, {
     timestamps: true 
 });
