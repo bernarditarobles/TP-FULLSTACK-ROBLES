@@ -21,6 +21,14 @@ Peticiones HTTP que tienen un body en formato JSON.
 
 /app/controllers: Contiene la lógica de negocio y coordina la respuesta del sistema.    
 
+_____________________________________________________________________________________
+
+## ACLARACION SOBRE EL VIDEO ENTREGADO:
+primero ingreso con un usuario ADMIN_ROLE que tiene permisos para agregar y actualizar productos
+luego, creo un nuevo usuario (con posibles errores al crear al sesion)
+al manejar el carrito, utilizo el TOKEN generado al inicar la sesion ya que el usuario no puede manipular el carrito sin una cuenta ingresada
+para recuperar contraseña, no se requiere TOKEN de SESION porque el usuario no está en una cuenta, el token que se genera es el que debería llegarle al usuario por mail para crear una nueva contraseña.
+
 _______________________________________________________________________________________
 
 # ENDPOINTS
@@ -31,7 +39,7 @@ Inicio de sesion - obtener token: POST /api/users/login    |
 
 Obtener datos del perfil actual: GET /api/users/profile  (Requiere TOKEN).      |
 
-UNA VEZ EN LA SESION SE REQUIERE TOKEN
+UNA VEZ EN LA SESION SE REQUIERE TOKEN YA QUE MUESTRA LO QUE PUEDE HACER EL USUARIO EN SU SESION
 
 ### Productos
 Obtener catálogo de productos completo: GET /api/products       |
@@ -53,3 +61,10 @@ Eliminar ítem del carrito: DELETE /api/cart/:productoId     |
 Finalizar compra y generar pedido: POST /api/orders/checkout        |
 
 Ver historial de compras: GET /api/orders/historial     
+
+# Recuperar contraseña
+No requiere de TOKEN ya que el usuario no está en una sesión        |
+
+Generar TOKEN para nueva contrasea: POST /api/users/password-reset        |
+
+Guardar nueva contraseña: PUT /api/users/password-reset/{TOKEN GENERADO}        |
