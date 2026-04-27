@@ -6,5 +6,6 @@ const auth = require('../middleware/auth');
 router.post('/', productoController.crearProducto); 
 router.get('/', productoController.obtenerProductos); 
 router.get('/:id', auth, productoController.obtenerProductoPorId);
+router.patch('/:id', productoController.actualizarProducto);
 
 module.exports = router;

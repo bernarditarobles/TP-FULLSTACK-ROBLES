@@ -28,6 +28,7 @@ const UsuarioSchema = new mongoose.Schema({
         enum: ['ADMIN_ROLE', 'USER_ROLE'], 
         default: 'USER_ROLE'
     },
+    direccionGuardada: { type: String, default: "" },
     resetPasswordToken: String,
     resetPasswordExpires: Date
 }, {

@@ -54,12 +54,6 @@ const usuarioController = {
             res.status(200).json({
                 message: 'Inicio de sesión exitoso',
                 token,
-                usuario: {
-                    id: usuario._id,
-                    nombre: usuario.nombre,
-                    email: usuario.email,
-                    rol: usuario.rol
-                },
                 carrito: carritoPendiente || { items: [], total: 0 } // Requisito de persistencia
             });
         

@@ -68,6 +68,20 @@ const productoController = {
         } catch (error) {
             res.status(500).json({ message: 'Error al obtener el detalle', error: error.message });
         }
+    },
+
+    async actualizarProducto(req, res)  {
+    try {
+        const producto = await Producto.findByIdAndUpdate(
+            req.params.id, 
+            req.body, 
+            { new: true }
+        );
+        if (!producto) return res.status(404).json({ message: 'Producto no encontrado' });
+        res.json({ message: 'Producto actualizado!', producto });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al actualizar', error });
+    }
     }
 };
 

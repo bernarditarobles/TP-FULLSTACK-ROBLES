@@ -1,6 +1,7 @@
 const Orden = require('../models/orden');
 const Carrito = require('../models/carrito');
 const Producto = require('../models/producto');
+const Usuario = require('../models/usuario');
 
 const ordenController = {
     async finalizarCompra(req, res) {
@@ -38,7 +39,7 @@ const ordenController = {
                 items: itemsOrden,
                 total: carrito.total,
                 numeroPedido: `ORD-${Date.now()}`, 
-                estado: 'PENDIENTE' 
+                estado: 'pendiente' 
             });
 
             await nuevaOrden.save();
